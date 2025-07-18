@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <title>Mapa Interativo - Teste</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet" />
+  <style>
+    body, html { margin: 0; padding: 0; height: 100%; }
+    #mapa { width: 100%; height: 100%; }
+  </style>
+</head>
+<body>
+  <div id="mapa"></div>
+
+  <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
+  <script>
+    mapboxgl.accessToken = 'pk.eyJ1IjoiZGVuaWxzb25qZXJpIiwiYSI6ImNtZDRuNWpyazA0MTgyaXBwNGszNDB1amUifQ.6ZO0WpmlmUBd7_n8URaMIQ';
+
+    const map = new mapboxgl.Map({
+      container: 'mapa',
+      style: 'mapbox://styles/denilsonjeri/cmd9200z8007101s2e47a3nej',
+      center: [-40.500, -2.820],
+      zoom: 11,
+      pitch: 60,
+      bearing: 0,
+      antialias: true
+    });
+
+    // Adiciona controles de navegação
+    map.addControl(new mapboxgl.NavigationControl());
+
+    // Carrega dados de teste
+    fetch('https://raw.githubusercontent.com/sobrejeri/mapa-wix/main/pontos.json')
+      .then(res => res.json())
+      .then(pontos => {
+        pontos.forEach(ponto => {
+          const marker = new mapboxgl.Marker()
+            .setLngLat([ponto.longitude, ponto.latitude])
+            .setPopup(
+              new mapboxgl.Popup({ offset: 25 }).setHTML(`
+                <h3>${ponto.nome}</h3>
+                <img src="${ponto.imagem}" alt="${ponto.nome}" style="width:100%; border-radius:8px;"/>
+              `)
+            )
+            .addTo(map);
+        });
+      });
+  </script>
+</body>
+</html>
