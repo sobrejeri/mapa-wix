@@ -36,21 +36,26 @@
 
     map.addControl(new mapboxgl.NavigationControl());
 
-    // Carregar os pontos de forma dinâmica via JSON
-    fetch('https://sobrejeri.github.io/mapa-wix/pontos.json')
-      .then(response => response.json())
-      .then(pontos => {
-        pontos.forEach(ponto => {
-          new mapboxgl.Marker()
-            .setLngLat([ponto.longitude, ponto.latitude])
-            .setPopup(new mapboxgl.Popup({ offset: 25 }).setHTML(`
-              <h3>${ponto.nome}</h3>
-              <img src="${ponto.imagem}" alt="${ponto.nome}" style="width:100%; border-radius:8px;" />
-            `))
-            .addTo(map);
-        });
-      })
-      .catch(erro => console.error('Erro ao carregar os pontos:', erro));
+    async function carregarPontos() {
+      const response = await fetch('https://www.wixapis.com/content/v1/collections/TERRENOS/items', {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer IST.eyJraWQiOiJQb3pIX2FDMiIsImFsZyI6IlJTMjU2In0.eyJkYXRhIjoie1wiaWRcIjpcImY1MTA2MzdmLTFmMGItNDY0Yy04NGExLWUzYmQ0MzgxMmYxNlwiLFwiaWRlbnRpdHlcIjp7XCJ0eXBlXCI6XCJhcHBsaWNhdGlvblwiLFwiaWRcIjpcIjRhMmUzNDg1LTM3YTgtNGNkZC04MzYxLWI1ZTYxNmEyNGIyZVwifSxcInRlbmFudFwiOntcInR5cGVcIjpcImFjY291bnRcIixcImlkXCI6XCJiYjdlZmQyOC1mNjk1LTRhNjUtYjliMi1kMDMxODZlZTFkMWRcIn19IiwiaWF0IjoxNzUyODY3ODc3fQ.ELNOi9wfD8M3YiGZ1PZeOZ4B8XzlqHWUbBTWwyl8P7gqP_6OWN3gqOhhBH9PBy8rZ6_3eBygC4BrPXgHnCa9i-TEvK-_06Y1N5z9lODK382LiE9ekn-aIR0XkjdbYUTXbH5wkGhLD04kJJ7cH8WolPdMSr-rIlpal6OtjQC1AzEuLDudQ3o908jAUsoN0SYGK5bfwFuern4xHJ9hm9jdpGY0WBV1zq8h49w-bzzXEdj-56twxhd0514twauRgYrIcyP1kEoD1pcCdkAdE_kU4bXAWY5sRv9dFY0xn968vhX5MP3_LvSQBnU0J33IVg0xuDNdStRFekCdo5cp8E6A5A'
+        }
+      });
+
+      const data = await response.json();
+
+      data.items.forEach(item => {
+        const [lat, lng] = item.coords.split(',').map(coord => parseFloat(coord.trim()));
+        const marker = new mapboxgl.Marker()
+          .setLngLat([lng, lat])
+          .setPopup(new mapboxgl.Popup().setHTML(`<h3>${item.title}</h3><img src="${item.imagem}" width="150" />`))
+          .addTo(map);
+      });
+    }
+
+    carregarPontos();
   </script>
 </body>
 </html>
