@@ -1,36 +1,37 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="utf-8" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Mapa Interativo - Mapbox</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet" />
-  <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
   <style>
     html, body {
       margin: 0;
       padding: 0;
       height: 100%;
     }
-    #map {
+    #mapa {
       width: 100%;
       height: 100%;
     }
   </style>
 </head>
 <body>
-  <div id="map"></div>
+  <div id="mapa"></div>
 
+  <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
   <script>
     mapboxgl.accessToken = 'pk.eyJ1IjoiZGVuaWxzb25qZXJpIiwiYSI6ImNtZDRuNWpyazA0MTgyaXBwNGszNDB1amUifQ.6ZO0WpmlmUBd7_n8URaMIQ';
 
     const map = new mapboxgl.Map({
-      container: 'map',
+      container: 'mapa',
       style: 'mapbox://styles/denilsonjeri/cmd9200z8007101s2e47a3nej',
-      center: [-40,407894, -2,879934],
-      zoom: 12.78,
-      pitch: 74.50,
-      bearing: -38.40
+      center: [-40.35182, -2.91782], // [longitude, latitude]
+      zoom: 12.77,
+      pitch: 52,
+      bearing: 70,
+      projection: 'globe'
     });
 
     map.addControl(new mapboxgl.NavigationControl());
