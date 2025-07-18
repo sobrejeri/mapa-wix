@@ -6,15 +6,8 @@
   <title>Mapa Interativo - Mapbox</title>
   <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet" />
   <style>
-    html, body {
-      margin: 0;
-      padding: 0;
-      height: 100%;
-    }
-    #mapa {
-      width: 100%;
-      height: 100%;
-    }
+    html, body { margin: 0; padding: 0; height: 100%; }
+    #mapa { width: 100%; height: 100%; }
   </style>
 </head>
 <body>
@@ -22,8 +15,10 @@
 
   <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
   <script>
+    // Token do Mapbox
     mapboxgl.accessToken = 'pk.eyJ1IjoiZGVuaWxzb25qZXJpIiwiYSI6ImNtZDRuNWpyazA0MTgyaXBwNGszNDB1amUifQ.6ZO0WpmlmUBd7_n8URaMIQ';
 
+    // Iniciar o mapa
     const map = new mapboxgl.Map({
       container: 'mapa',
       style: 'mapbox://styles/denilsonjeri/cmd9200z8007101s2e47a3nej',
@@ -36,26 +31,54 @@
 
     map.addControl(new mapboxgl.NavigationControl());
 
-    async function carregarPontos() {
-      const response = await fetch('https://www.wixapis.com/content/v1/collections/TERRENOS/items', {
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer IST.eyJraWQiOiJQb3pIX2FDMiIsImFsZyI6IlJTMjU2In0.eyJkYXRhIjoie1wiaWRcIjpcImY1MTA2MzdmLTFmMGItNDY0Yy04NGExLWUzYmQ0MzgxMmYxNlwiLFwiaWRlbnRpdHlcIjp7XCJ0eXBlXCI6XCJhcHBsaWNhdGlvblwiLFwiaWRcIjpcIjRhMmUzNDg1LTM3YTgtNGNkZC04MzYxLWI1ZTYxNmEyNGIyZVwifSxcInRlbmFudFwiOntcInR5cGVcIjpcImFjY291bnRcIixcImlkXCI6XCJiYjdlZmQyOC1mNjk1LTRhNjUtYjliMi1kMDMxODZlZTFkMWRcIn19IiwiaWF0IjoxNzUyODY3ODc3fQ.ELNOi9wfD8M3YiGZ1PZeOZ4B8XzlqHWUbBTWwyl8P7gqP_6OWN3gqOhhBH9PBy8rZ6_3eBygC4BrPXgHnCa9i-TEvK-_06Y1N5z9lODK382LiE9ekn-aIR0XkjdbYUTXbH5wkGhLD04kJJ7cH8WolPdMSr-rIlpal6OtjQC1AzEuLDudQ3o908jAUsoN0SYGK5bfwFuern4xHJ9hm9jdpGY0WBV1zq8h49w-bzzXEdj-56twxhd0514twauRgYrIcyP1kEoD1pcCdkAdE_kU4bXAWY5sRv9dFY0xn968vhX5MP3_LvSQBnU0J33IVg0xuDNdStRFekCdo5cp8E6A5A'
-        }
-      });
+    // URL da API do Wix
+    const url = 'https://www.wixapis.com/wix-data/v2/collections/TERRENOS/items';
+    const apiKey = 'IST.eyJraWQiOiJQb3pIX2FDMiIsImFsZyI6IlJTMjU2In0.eyJkYXRhIjoie1wiaWRcIjpcImY1MTA2MzdmLTFmMGItNDY0Yy04NGExLWUzYmQ0MzgxMmYxNlwiLFwiaWRlbnRpdHlcIjp7XCJ0eXBlXCI6XCJhcHBsaWNhdGlvblwiLFwiaWRcIjpcIjRhMmUzNDg1LTM3YTgtNGNkZC04MzYxLWI1ZTYxNmEyNGIyZVwifSxcInRlbmFudFwiOntcInR5cGVcIjpcImFjY291bnRcIixcImlkXCI6XCJiYjdlZmQyOC1mNjk1LTRhNjUtYjliMi1kMDMxODZlZTFkMWRcIn19IiwiaWF0IjoxNzUyODY3ODc3fQ.ELNOi9wfD8M3YiGZ1PZeOZ4B8XzlqHWUbBTWwyl8P7gqP_6OWN3gqOhhBH9PBy8rZ6_3eBygC4BrPXgHnCa9i-TEvK-_06Y1N5z9lODK382LiE9ekn-aIR0XkjdbYUTXbH5wkGhLD04kJJ7cH8WolPdMSr-rIlpal6OtjQC1AzEuLDudQ3o908jAUsoN0SYGK5bfwFuern4xHJ9hm9jdpGY0WBV1zq8h49w-bzzXEdj-56twxhd0514twauRgYrIcyP1kEoD1pcCdkAdE_kU4bXAWY5sRv9dFY0xn968vhX5MP3_LvSQBnU0J33IVg0xuDNdStRFekCdo5cp8E6A5A'; // Substitua por sua chave real
 
-      const data = await response.json();
+    // Carregar dados do CMS
+    async function carregarDados() {
+      try {
+        const resposta = await fetch(url, {
+          method: 'GET',
+          headers: {
+            'Authorization': apiKey,
+            'Content-Type': 'application/json'
+          }
+        });
 
-      data.items.forEach(item => {
-        const [lat, lng] = item.coords.split(',').map(coord => parseFloat(coord.trim()));
-        const marker = new mapboxgl.Marker()
-          .setLngLat([lng, lat])
-          .setPopup(new mapboxgl.Popup().setHTML(`<h3>${item.title}</h3><img src="${item.imagem}" width="150" />`))
-          .addTo(map);
-      });
+        const dados = await resposta.json();
+        const itens = dados.items || [];
+
+        itens.forEach((item) => {
+          if (item.coords) {
+            const partes = item.coords.split(',');
+            const latitude = parseFloat(partes[0]);
+            const longitude = parseFloat(partes[1]);
+
+            if (!isNaN(latitude) && !isNaN(longitude)) {
+              // Adiciona pino no mapa
+              new mapboxgl.Marker()
+                .setLngLat([longitude, latitude])
+                .setPopup(new mapboxgl.Popup().setHTML(`
+                  <strong>${item.title}</strong><br>
+                  ${item.tipo || ''}<br>
+                  <img src="${item.imagem?.url || ''}" alt="" width="100" />
+                `))
+                .addTo(map);
+            } else {
+              console.warn('Coordenadas inválidas:', item.coords);
+            }
+          } else {
+            console.warn('Item sem coordenadas:', item);
+          }
+        });
+      } catch (erro) {
+        console.error('Erro ao buscar dados do Wix CMS:', erro);
+      }
     }
 
-    carregarPontos();
+    // Chamada da função
+    carregarDados();
   </script>
 </body>
 </html>
