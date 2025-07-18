@@ -1,51 +1,32 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="utf-8">
-  <title>Mapa Interativo - Teste</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet" />
-  <style>
-    body, html { margin: 0; padding: 0; height: 100%; }
-    #mapa { width: 100%; height: 100%; }
-  </style>
-</head>
-<body>
-  <div id="mapa"></div>
-
-  <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
-  <script>
-    mapboxgl.accessToken = 'pk.eyJ1IjoiZGVuaWxzb25qZXJpIiwiYSI6ImNtZDRuNWpyazA0MTgyaXBwNGszNDB1amUifQ.6ZO0WpmlmUBd7_n8URaMIQ';
-
-    const map = new mapboxgl.Map({
-      container: 'mapa',
-      style: 'mapbox://styles/denilsonjeri/cmd9200z8007101s2e47a3nej',
-      center: [-40.500, -2.820],
-      zoom: 11,
-      pitch: 60,
-      bearing: 0,
-      antialias: true
-    });
-
-    // Adiciona controles de navegação
-    map.addControl(new mapboxgl.NavigationControl());
-
-    // Carrega dados de teste
-    fetch('https://raw.githubusercontent.com/sobrejeri/mapa-wix/main/pontos.json')
-      .then(res => res.json())
-      .then(pontos => {
-        pontos.forEach(ponto => {
-          const marker = new mapboxgl.Marker()
-            .setLngLat([ponto.longitude, ponto.latitude])
-            .setPopup(
-              new mapboxgl.Popup({ offset: 25 }).setHTML(`
-                <h3>${ponto.nome}</h3>
-                <img src="${ponto.imagem}" alt="${ponto.nome}" style="width:100%; border-radius:8px;"/>
-              `)
-            )
-            .addTo(map);
-        });
-      });
-  </script>
-</body>
-</html>
+[
+  {
+    "nome": "Praia Principal",
+    "latitude": -2.796674,
+    "longitude": -40.513134,
+    "imagem": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Jericoacoara_beach.jpg/640px-Jericoacoara_beach.jpg"
+  },
+  {
+    "nome": "Duna do Pôr do Sol",
+    "latitude": -2.798293,
+    "longitude": -40.516265,
+    "imagem": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Jericoacoara_Duna_Por_do_Sol_2017.jpg/640px-Jericoacoara_Duna_Por_do_Sol_2017.jpg"
+  },
+  {
+    "nome": "Árvore da Preguiça",
+    "latitude": -2.843667,
+    "longitude": -40.475987,
+    "imagem": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/%C3%81rvore_da_Pregui%C3%A7a_em_Jericoacoara.jpg/640px-%C3%81rvore_da_Pregui%C3%A7a_em_Jericoacoara.jpg"
+  },
+  {
+    "nome": "Lagoa do Paraíso",
+    "latitude": -2.858003,
+    "longitude": -40.435163,
+    "imagem": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Lagoa_do_Para%C3%ADso_-_Jijoca_de_Jericoacoara.jpg/640px-Lagoa_do_Para%C3%ADso_-_Jijoca_de_Jericoacoara.jpg"
+  },
+  {
+    "nome": "Pedra Furada",
+    "latitude": -2.784782,
+    "longitude": -40.479172,
+    "imagem": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Pedra_Furada_Jericoacoara.jpg/640px-Pedra_Furada_Jericoacoara.jpg"
+  }
+]
