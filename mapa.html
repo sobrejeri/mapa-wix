@@ -3,16 +3,24 @@
 <head>
   <meta charset="utf-8" />
   <title>Mapa Interativo - Mapbox</title>
-  <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
-  <link href="https://api.mapbox.com/mapbox-gl-js/v3.13.0/mapbox-gl.css" rel="stylesheet" />
-  <script src="https://api.mapbox.com/mapbox-gl-js/v3.13.0/mapbox-gl.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet" />
+  <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
   <style>
-    body, html { margin: 0; padding: 0; height: 100%; }
-    #map { position: absolute; top: 0; bottom: 0; width: 100%; }
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+    }
+    #map {
+      width: 100%;
+      height: 100%;
+    }
   </style>
 </head>
 <body>
   <div id="map"></div>
+
   <script>
     mapboxgl.accessToken = 'pk.eyJ1IjoiZGVuaWxzb25qZXJpIiwiYSI6ImNtZDRuNWpyazA0MTgyaXBwNGszNDB1amUifQ.6ZO0WpmlmUBd7_n8URaMIQ';
 
@@ -22,16 +30,10 @@
       center: [-40.3503, -2.9054],
       zoom: 13,
       pitch: 70,
-      bearing: 70,
-      projection: 'globe'
+      bearing: 70
     });
 
     map.addControl(new mapboxgl.NavigationControl());
-    map.scrollZoom.enable();
-
-    map.on('style.load', () => {
-      map.setFog({}); // Estilo atmosférico padrão
-    });
   </script>
 </body>
 </html>
