@@ -35,6 +35,22 @@
     });
 
     map.addControl(new mapboxgl.NavigationControl());
+
+    // Carregar os pontos de forma dinâmica via JSON
+    fetch('https://sobrejeri.github.io/mapa-wix/pontos.json')
+      .then(response => response.json())
+      .then(pontos => {
+        pontos.forEach(ponto => {
+          new mapboxgl.Marker()
+            .setLngLat([ponto.longitude, ponto.latitude])
+            .setPopup(new mapboxgl.Popup({ offset: 25 }).setHTML(`
+              <h3>${ponto.nome}</h3>
+              <img src="${ponto.imagem}" alt="${ponto.nome}" style="width:100%; border-radius:8px;" />
+            `))
+            .addTo(map);
+        });
+      })
+      .catch(erro => console.error('Erro ao carregar os pontos:', erro));
   </script>
 </body>
 </html>
