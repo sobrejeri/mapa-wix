@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Mapa Interativo - Mapbox</title>
+  <title>Mapa Interativo - Wix + Mapbox</title>
   <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet" />
   <style>
     html, body { margin: 0; padding: 0; height: 100%; }
@@ -15,10 +15,8 @@
 
   <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
   <script>
-    // Token do Mapbox
     mapboxgl.accessToken = 'pk.eyJ1IjoiZGVuaWxzb25qZXJpIiwiYSI6ImNtZDRuNWpyazA0MTgyaXBwNGszNDB1amUifQ.6ZO0WpmlmUBd7_n8URaMIQ';
 
-    // Iniciar o mapa
     const map = new mapboxgl.Map({
       container: 'mapa',
       style: 'mapbox://styles/denilsonjeri/cmd9200z8007101s2e47a3nej',
@@ -31,54 +29,30 @@
 
     map.addControl(new mapboxgl.NavigationControl());
 
-    // URL da API do Wix
-    const url = 'https://www.wixapis.com/wix-data/v2/collections/TERRENOS/items';
-    const apiKey = 'Bearer.IST.eyJraWQiOiJQb3pIX2FDMiIsImFsZyI6IlJTMjU2In0.eyJkYXRhIjoie1wiaWRcIjpcIjhlYzc2ZjdlLTk3OTEtNGIwMS1iMzdhLWE1ZGFjMjcxYzJjMFwiLFwiaWRlbnRpdHlcIjp7XCJ0eXBlXCI6XCJhcHBsaWNhdGlvblwiLFwiaWRcIjpcIjRhMmUzNDg1LTM3YTgtNGNkZC04MzYxLWI1ZTYxNmEyNGIyZVwifSxcInRlbmFudFwiOntcInR5cGVcIjpcImFjY291bnRcIixcImlkXCI6XCJiYjdlZmQyOC1mNjk1LTRhNjUtYjliMi1kMDMxODZlZTFkMWRcIn19IiwiaWF0IjoxNzUyODk3OTE1fQ.CB9WD5g15lgAgYEfTfY3uHNJxw7nwa3bZGjgmI-nlnCRZkAIoA82QTtUL2e8mlOpYxPDzvyEiBGTBPSWPJSF3e2N22xoPBoPt9RmF30kEr-8LuCrteVYF1ClisyIl5FKf9gbsJs6AI445LWtHD2teSnF1Q7we16wcYCYMLp19dNTBHZ-9TKlHei2p3dmbZKcfp7lXt9_tQPweICEDKnpxE3OfXxrmKi_S5wSbJWbuJCykhrFQ3vTmwYM6TMDmXHXaBa8lP4gE2yg4S4h9MKIXy5DnI7MXX9qMeX4rLaO245jLNJB2AJpkfsKMeF3XSGKvIEz6qpEa-99ALLtU2yFCg'; // Substitua por sua chave real
-
-    // Carregar dados do CMS
-    async function carregarDados() {
+    // ⚙️ Função para adicionar pontos do Wix CMS
+    async function carregarTerrenos() {
       try {
-        const resposta = await fetch(url, {
-          method: 'GET',
-          headers: {
-            'Authorization': apiKey,
-            'Content-Type': 'application/json'
+        const response = await fetch("https://sobrejeri.wixstudio.io/_functions/getTerrenos");
+        const dados = await response.json();
+
+        dados.forEach(terreno => {
+          if (terreno.latitude && terreno.longitude) {
+            const popup = new mapboxgl.Popup({ offset: 25 })
+              .setHTML(`<strong>${terreno.nome}</strong><br>${terreno.descricao || ''}`);
+
+            new mapboxgl.Marker()
+              .setLngLat([terreno.longitude, terreno.latitude])
+              .setPopup(popup)
+              .addTo(map);
           }
         });
 
-        const dados = await resposta.json();
-        const itens = dados.items || [];
-
-        itens.forEach((item) => {
-          if (item.coords) {
-            const partes = item.coords.split(',');
-            const latitude = parseFloat(partes[0]);
-            const longitude = parseFloat(partes[1]);
-
-            if (!isNaN(latitude) && !isNaN(longitude)) {
-              // Adiciona pino no mapa
-              new mapboxgl.Marker()
-                .setLngLat([longitude, latitude])
-                .setPopup(new mapboxgl.Popup().setHTML(`
-                  <strong>${item.title}</strong><br>
-                  ${item.tipo || ''}<br>
-                  <img src="${item.imagem?.url || ''}" alt="" width="100" />
-                `))
-                .addTo(map);
-            } else {
-              console.warn('Coordenadas inválidas:', item.coords);
-            }
-          } else {
-            console.warn('Item sem coordenadas:', item);
-          }
-        });
       } catch (erro) {
-        console.error('Erro ao buscar dados do Wix CMS:', erro);
+        console.error("Erro ao carregar dados da coleção TERRENOS:", erro);
       }
     }
 
-    // Chamada da função
-    carregarDados();
+    carregarTerrenos();
   </script>
 </body>
 </html>
