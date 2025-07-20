@@ -1,32 +1,18 @@
 [
   {
-    "nome": "Praia Principal",
-    "latitude": -2.796674,
-    "longitude": -40.513134,
-    "imagem": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Jericoacoara_beach.jpg/640px-Jericoacoara_beach.jpg"
+    "title": "Duna do Pôr do Sol",
+    "lat": -2.7930,
+    "lng": -40.5125,
+    "image": "https://harus.ind.br/wp-content/uploads/2023/02/5-praias-brasileiras.jpg",
+    "link": "https://wa.me/558898122290?text=Quero saber mais sobre a Duna",
+    "description": "Melhor lugar para assistir o pôr do sol."
   },
   {
-    "nome": "Duna do Pôr do Sol",
-    "latitude": -2.798293,
-    "longitude": -40.516265,
-    "imagem": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Jericoacoara_Duna_Por_do_Sol_2017.jpg/640px-Jericoacoara_Duna_Por_do_Sol_2017.jpg"
-  },
-  {
-    "nome": "Árvore da Preguiça",
-    "latitude": -2.843667,
-    "longitude": -40.475987,
-    "imagem": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/%C3%81rvore_da_Pregui%C3%A7a_em_Jericoacoara.jpg/640px-%C3%81rvore_da_Pregui%C3%A7a_em_Jericoacoara.jpg"
-  },
-  {
-    "nome": "Lagoa do Paraíso",
-    "latitude": -2.858003,
-    "longitude": -40.435163,
-    "imagem": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Lagoa_do_Para%C3%ADso_-_Jijoca_de_Jericoacoara.jpg/640px-Lagoa_do_Para%C3%ADso_-_Jijoca_de_Jericoacoara.jpg"
-  },
-  {
-    "nome": "Pedra Furada",
-    "latitude": -2.784782,
-    "longitude": -40.479172,
-    "imagem": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Pedra_Furada_Jericoacoara.jpg/640px-Pedra_Furada_Jericoacoara.jpg"
+    "title": "Praia Principal",
+    "lat": -2.7939,
+    "lng": -40.5102,
+    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTtLUNN-Vp3dPZt7WlaTNrGa1397_pBk2JiQg&s",
+    "link": "https://wa.me/558898122290?text=Quero saber mais sobre a Praia",
+    "description": "Praia central de Jeri com barracas e atividades."
   }
 ]
