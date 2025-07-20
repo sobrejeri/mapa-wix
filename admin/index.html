@@ -3,13 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <title>Admin</title>
-    <script src="https://unpkg.com/netlify-cms@2.15.72/dist/netlify-cms.js" defer></script>
   </head>
   <body>
-    <!-- Apenas um div vazio é necessário. O Netlify CMS irá montar o conteúdo automaticamente -->
+    <!-- Netlify CMS será injetado aqui -->
+    <script src="https://unpkg.com/netlify-cms@2.15.72/dist/netlify-cms.js"></script>
     <script>
       // Espera o carregamento completo do script do CMS
-      window.addEventListener('DOMContentLoaded', () => {
+      window.addEventListener("DOMContentLoaded", () => {
         if (typeof CMS !== 'undefined') {
           CMS.init(); // Inicializa o CMS
         } else {
