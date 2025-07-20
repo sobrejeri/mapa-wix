@@ -1,6 +1,5 @@
 backend:
-  name: github
-  repo: sobrejeri/mapa-wix
+  name: git-gateway
   branch: main
 
 media_folder: "images/uploads"
@@ -9,13 +8,11 @@ public_folder: "/images/uploads"
 collections:
   - name: "pontos"
     label: "Pontos do Mapa"
-    folder: "dados/pontos"
+    folder: "data/pontos"
     create: true
     slug: "{{slug}}"
     fields:
       - { label: "Título", name: "title", widget: "string" }
-      - { label: "Descrição", name: "description", widget: "text" }
+      - { label: "Latitude", name: "lat", widget: "string" }
+      - { label: "Longitude", name: "lng", widget: "string" }
       - { label: "Imagem", name: "image", widget: "image" }
-      - { label: "Link", name: "link", widget: "string" }
-      - { label: "Latitude", name: "lat", widget: "number" }
-      - { label: "Longitude", name: "lng", widget: "number" }
