@@ -1,23 +1,11 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html>
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin | Decap CMS</title>
-    <link rel="stylesheet" href="https://unpkg.com/decap-cms@3.8.0/dist/decap-cms.css" />
+    <title>Decap CMS</title>
+    <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
   </head>
   <body>
-    <!-- Cria o container necessário para renderizar o CMS -->
-    <script src="https://unpkg.com/decap-cms@3.8.0/dist/decap-cms.js"></script>
-    <script>
-      window.CMS_MANUAL_INIT = true;
-      document.addEventListener("DOMContentLoaded", function () {
-        if (typeof CMS !== 'undefined') {
-          CMS.init();
-        } else {
-          console.error("❌ CMS não foi carregado corretamente");
-        }
-      });
-    </script>
+    <!-- O CMS vai se injetar automaticamente aqui -->
   </body>
 </html>
