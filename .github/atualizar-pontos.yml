@@ -4,7 +4,7 @@ name: Atualizar pontos.json
 on:
   push:
     paths:
-      - 'dados/pontos/*.md'
+      - 'dados/pontos/**.md'
 
 jobs:
   build:
