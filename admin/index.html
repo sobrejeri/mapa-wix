@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
-    <title>Admin - Decap CMS</title>
+    <title>Admin | Decap CMS</title>
     <script src="https://unpkg.com/decap-cms@3.8.0/dist/decap-cms.js"></script>
   </head>
   <body>
@@ -10,11 +10,7 @@
       window.CMS_MANUAL_INIT = true;
     </script>
     <script>
-      fetch('config.yml')
-        .then(res => res.text())
-        .then(config => {
-          window.CMS.init({ config: config });
-        });
+      CMS.init();
     </script>
   </body>
 </html>
