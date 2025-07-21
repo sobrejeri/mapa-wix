@@ -1,4 +1,10 @@
+# netlify.toml
+[build]
+  command = "" # Seu comando de build, se houver
+  publish = "public" # O diretório de arquivos estáticos a ser servido
+
 [[redirects]]
-  from = "/*"
-  to = "/index.html"
+  from = "/administrador/*"
+  to = "/administrador/index.html"
   status = 200
+  force = true
