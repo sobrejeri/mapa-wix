@@ -4,7 +4,7 @@
   publish = "public" # O diretório de arquivos estáticos a ser servido
 
 [[redirects]]
-  from = "/administrador/*"
-  to = "/administrador/index.html"
+  from = "/admin/*"
+  to = "/admin/index.html"
   status = 200
   force = true
