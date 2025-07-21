@@ -2,18 +2,18 @@ backend:
   name: github
   repo: sobrejeri/mapa-wix
   branch: main
+  use_graphql: true
 
 media_folder: "public/uploads"
 public_folder: "/uploads"
 
 locale: "pt"
-
 site_url: "https://sobrejeri.github.io/mapa-wix"
 
 collections:
   - name: "pontos"
     label: "Pontos do Mapa"
-    folder: "content/pontos"
+    folder: "dados"
     create: true
     slug: "{{slug}}"
     fields:
@@ -22,3 +22,4 @@ collections:
       - { label: "Latitude", name: "latitude", widget: "string" }
       - { label: "Longitude", name: "longitude", widget: "string" }
       - { label: "Imagem", name: "image", widget: "image" }
+      - { label: "Link", name: "link", widget: "string" }
