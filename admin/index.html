@@ -3,18 +3,29 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CMS do Mapa</title>
+  <title>Painel de Administração do Mapa</title>
+  <link href="/admin/config.yml" type="text/yaml" rel="cms-config" />
 </head>
 <body>
-  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  <div id="nc-root"></div>
 
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
 
   <script>
-    // Script para lidar com o recovery token
+    // Script para lidar com o recovery token (já mencionado no ponto 1)
     if (window.location.hash.includes('recovery_token')) {
-      // Redireciona para a base do administrador, mantendo o hash
-      window.location.href = '/administrador/' + window.location.hash;
+      window.location.href = '/admin/' + window.location.hash;
+    }
+    // Opcional: Configurar o Netlify Identity para redirecionar após login/logout
+    if (typeof netlifyIdentity !== 'undefined') {
+      netlifyIdentity.on('init', user => {
+        if (!user) {
+          netlifyIdentity.on('login', () => {
+            document.location.href = '/admin/'; // Redireciona para o CMS após login
+          });
+        }
+      });
     }
   </script>
 </body>
