@@ -1,12 +1,21 @@
-<!DOCTYPE html>
-<html lang="pt">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Administração do Mapa</title>
-  </head>
-  <body>
-    <!-- Aqui o Decap CMS será montado -->
-    <script src="https://unpkg.com/decap-cms@3.0.0/dist/decap-cms.js"></script>
-  </body>
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CMS do Mapa</title>
+</head>
+<body>
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+
+  <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+
+  <script>
+    // Script para lidar com o recovery token
+    if (window.location.hash.includes('recovery_token')) {
+      // Redireciona para a base do administrador, mantendo o hash
+      window.location.href = '/administrador/' + window.location.hash;
+    }
+  </script>
+</body>
 </html>
