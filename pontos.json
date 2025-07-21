@@ -1,26 +1,10 @@
 [
   {
-    "title": "Duna do Pôr do Sol",
-    "lat": -2.7930,
-    "lng": -40.5125,
-    "image": "https://harus.ind.br/wp-content/uploads/2023/02/5-praias-brasileiras.jpg",
-    "link": "https://wa.me/558898122290?text=Quero saber mais sobre a Duna",
-    "description": "Melhor lugar para assistir o pôr do sol."
-  },
-  {
-    "title": "Duna do Pôr do Sol",
-    "lat": -2.8566,
-    "lng": -40.4066,
-    "image": "https://harus.ind.br/wp-content/uploads/2023/02/5-praias-brasileiras.jpg",
-    "link": "https://wa.me/558898122290?text=Quero saber mais sobre a Duna",
-    "description": "Melhor lugar para assistir o pôr do sol."
-  },
-  {
-    "title": "Praia Principal",
-    "lat": -2.7939,
-    "lng": -40.5102,
-    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTtLUNN-Vp3dPZt7WlaTNrGa1397_pBk2JiQg&s",
-    "link": "https://wa.me/558898122290?text=Quero saber mais sobre a Praia",
-    "description": "Praia central de Jeri com barracas e atividades."
+    "title": "Praia do Preá",
+    "lat": -2.7934,
+    "lng": -40.4901,
+    "image": "https://i.imgur.com/abc123.jpg",
+    "link": "https://wa.me/5588981222209?text=Quero saber mais sobre a Praia do Preá",
+    "description": "Praia ideal para kitesurf, com visual paradisíaco."
   }
 ]
