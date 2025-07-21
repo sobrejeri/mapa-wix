@@ -1,0 +1,24 @@
+
+name: Atualizar pontos.json
+
+on:
+  push:
+    paths:
+      - 'dados/pontos/*.md'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Instalar dependências
+        run: npm install gray-matter
+      - name: Gerar pontos.json
+        run: node build.js
+      - name: Commit e push do pontos.json
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add pontos.json
+          git commit -m "🔄 Atualizar pontos.json via GitHub Actions" || echo "Nenhuma mudança para commit"
+          git push
