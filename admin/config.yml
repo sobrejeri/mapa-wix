@@ -2,13 +2,13 @@ backend:
   name: github
   repo: sobrejeri/mapa-wix
   branch: main
-  base_url: https://sobrejeri.github.io
-  auth_endpoint: /mapa-wix/auth
 
 media_folder: "uploads"
 public_folder: "/uploads"
 
 locale: "pt"
+
+site_url: "https://sobrejeri.github.io/mapa-wix"
 
 collections:
   - name: "pontos"
