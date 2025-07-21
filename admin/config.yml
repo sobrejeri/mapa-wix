@@ -11,16 +11,14 @@ locale: "pt"
 collections:
   - name: "pontos"
     label: "Pontos do Mapa"
-    files:
-      - file: "pontos.json"
-        label: "Pontos JSON"
-        name: "pontos"
-        format: "json"
-        fields:
-          - { label: "Pontos", name: "pontos", widget: "list", fields: [
-              { label: "Nome", name: "nome", widget: "string" },
-              { label: "Descrição", name: "descricao", widget: "text" },
-              { label: "Latitude", name: "latitude", widget: "string" },
-              { label: "Longitude", name: "longitude", widget: "string" },
-              { label: "Imagem", name: "imagem", widget: "image", required: false }
-            ]}
+    folder: "dados/pontos"
+    create: true
+    slug: "{{slug}}"
+    format: "json"
+    extension: "json"
+    fields:
+      - { label: "Nome", name: "nome", widget: "string" }
+      - { label: "Descrição", name: "descricao", widget: "text" }
+      - { label: "Latitude", name: "latitude", widget: "string" }
+      - { label: "Longitude", name: "longitude", widget: "string" }
+      - { label: "Imagem", name: "imagem", widget: "image" }
