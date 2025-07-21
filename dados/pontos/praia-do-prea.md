@@ -1,8 +1,8 @@
 ---
-nome: Praia do Preá
-latitude: -2.7913
-longitude: -40.4402
-imagem: https://upload.wikimedia.org/wikipedia/commons/2/25/Jericoacoara_prea.jpg
-link: https://wa.me/5588981222092?text=Quero+mais+sobre+a+Praia+do+Preá
-descricao: Local ideal para kite e vento forte.
+name: Praia do Preá
+latitude: -2.7934
+longitude: -40.4901
+imagem: https://i.imgur.com/abc123.jpg
+link: https://wa.me/5588981222209?text=Quero saber mais sobre a Praia do Preá
+descricao: Praia ideal para kitesurf, com visual paradisíaco.
 ---
