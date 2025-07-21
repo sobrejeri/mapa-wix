@@ -1,13 +1,11 @@
 backend:
-  name: github
-  repo: sobrejeri/mapa-wix
+  name: git-gateway
   branch: main
 
 media_folder: "uploads"
 public_folder: "/uploads"
 
 locale: "pt"
-site_url: "https://sobrejeri.github.io/mapa-wix"
 
 collections:
   - name: "pontos"
