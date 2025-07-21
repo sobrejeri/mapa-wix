@@ -37,7 +37,6 @@
       projection: 'globe'
     });
 
-    // Carrega os pontos do JSON compilado
     fetch('pontos.json')
       .then(response => response.json())
       .then(pontos => {
@@ -47,13 +46,14 @@
           el.style.backgroundImage = `url(${ponto.imagem})`;
 
           new mapboxgl.Marker(el)
-            .setLngLat([parseFloat(ponto.longitude), parseFloat(ponto.latitude)])
+            .setLngLat([ponto.longitude, ponto.latitude])
             .setPopup(
               new mapboxgl.Popup({ offset: 25 }).setHTML(`
                 <div style="text-align:center; max-width:250px;">
-                  <h3>${ponto.nome}</h3>
+                  <h3>${ponto.title}</h3>
                   ${ponto.imagem ? `<img src="${ponto.imagem}" style="width:100%; border-radius:10px;" />` : ''}
-                  <p>${ponto.descricao}</p>
+                  <p>${ponto.description}</p>
+                  ${ponto.link ? `<a href="${ponto.link}" target="_blank">Saiba mais</a>` : ''}
                 </div>
               `)
             )
@@ -63,6 +63,4 @@
       .catch(erro => {
         console.error('Erro ao carregar pontos.json:', erro);
       });
-  </script>
-</body>
-</html>
+  </script
