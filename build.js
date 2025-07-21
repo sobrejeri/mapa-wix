@@ -1,25 +1,32 @@
-
 const fs = require('fs');
 const path = require('path');
 const matter = require('gray-matter');
 
-const pasta = path.join(__dirname, 'dados/pontos');
-const saida = path.join(__dirname, 'pontos.json');
+const dir = path.join(__dirname, 'dados/pontos');
+const outputFile = path.join(__dirname, 'pontos.json');
 
-const arquivos = fs.readdirSync(pasta).filter(arquivo => arquivo.endsWith('.md'));
+const files = fs.readdirSync(dir);
+const pontos = [];
 
-const dados = arquivos.map(arquivo => {
-  const conteudo = fs.readFileSync(path.join(pasta, arquivo), 'utf8');
-  const { data } = matter(conteudo);
-  return {
-    title: data.nome || '',
-    lat: parseFloat(data.latitude),
-    lng: parseFloat(data.longitude),
-    image: data.imagem || '',
-    link: data.link || '',
-    description: data.descricao || ''
-  };
+files.forEach((file) => {
+  const filePath = path.join(dir, file);
+  const fileContent = fs.readFileSync(filePath, 'utf8');
+  const { data } = matter(fileContent);
+
+  if (
+    data.name && data.latitude && data.longitude &&
+    data.imagem && data.link && data.descricao
+  ) {
+    pontos.push({
+      title: data.name,
+      lat: parseFloat(data.latitude),
+      lng: parseFloat(data.longitude),
+      image: data.imagem,
+      link: data.link,
+      description: data.descricao,
+    });
+  }
 });
 
-fs.writeFileSync(saida, JSON.stringify(dados, null, 2));
-console.log('✔ pontos.json atualizado com sucesso!');
+fs.writeFileSync(outputFile, JSON.stringify(pontos, null, 2));
+console.log(`✅ Arquivo pontos.json gerado com ${pontos.length} pontos`);
