@@ -1,24 +1,24 @@
 backend:
-  name: test-repo
+  name: git-gateway
   branch: main
   local_backend: true
 
-media_folder: "static/uploads"       # Onde as imagens vão no repositório
-public_folder: "/static/uploads"     # Caminho acessível no site
+media_folder: "public/uploads"
+public_folder: "/uploads"
+
+locale: "pt"
+
+site_url: "https://sobrejeri.github.io/mapa-wix"
 
 collections:
   - name: "pontos"
-    label: "Pontos no Mapa"
-    folder: "data/pontos"
+    label: "Pontos do Mapa"
+    folder: "content/pontos"
     create: true
     slug: "{{slug}}"
     fields:
-      - { label: "Título", name: "title", widget: "string" }
+      - { label: "Nome", name: "title", widget: "string" }
       - { label: "Descrição", name: "description", widget: "text" }
-      - { label: "Imagem", name: "image", widget: "image" }
       - { label: "Latitude", name: "latitude", widget: "string" }
       - { label: "Longitude", name: "longitude", widget: "string" }
-backend:
-  name: test-repo
-  branch: main
-  local_backend: true
+      - { label: "Imagem", name: "image", widget: "image" }
