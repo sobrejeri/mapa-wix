@@ -1,35 +1,59 @@
 const fs = require('fs');
 const path = require('path');
-const matter = require('gray-matter');
+
+// A biblioteca 'gray-matter' não é necessária e foi removida.
 
 const dir = path.join(__dirname, 'dados/pontos');
 const outputFile = path.join(__dirname, 'pontos.json');
 
-const files = fs.readdirSync(dir);
+let files;
+try {
+  // Lê todos os arquivos do diretório de pontos
+  files = fs.readdirSync(dir);
+} catch (error) {
+  console.error(`ERRO: Não foi possível ler o diretório: ${dir}`);
+  console.error(error);
+  process.exit(1); // Encerra o script com erro
+}
+
 const pontos = [];
 
 files.forEach((file) => {
-  const filePath = path.join(dir, file);
-  const fileContent = fs.readFileSync(filePath, 'utf8');
-  const { data } = matter(fileContent);
+  // Garante que estamos a processar apenas arquivos .json
+  if (path.extname(file).toLowerCase() === '.json') {
+    const filePath = path.join(dir, file);
+    const fileContent = fs.readFileSync(filePath, 'utf8');
+    
+    try {
+      // Converte o conteúdo do arquivo (texto) para um objeto JavaScript
+      const data = JSON.parse(fileContent);
 
-  if (data.name && data.latitude && data.longitude && data.imagem && data.link && data.descricao) {
-    pontos.push({
-      nome: data.name,
-      latitude: parseFloat(data.latitude),
-      longitude: parseFloat(data.longitude),
-      imagem: data.imagem,
-      link: data.link,
-      descricao: data.descricao,
-    });
+      // Verifica se os campos essenciais existem no arquivo
+      if (data.name && data.latitude && data.longitude) {
+        pontos.push({
+          nome: data.name,
+          descricao: data.descricao || "", // Usa "" se a descrição não existir
+          latitude: parseFloat(data.latitude),
+          longitude: parseFloat(data.longitude),
+          imagem: data.imagem || "", // Usa "" se a imagem não existir
+          link: data.link || "" // Usa "" se o link não existir
+        });
+      } else {
+        console.warn(`AVISO: O arquivo ${file} foi ignorado porque não contém os campos 'name', 'latitude' ou 'longitude'.`);
+      }
+    } catch (e) {
+      console.error(`ERRO: Falha ao processar o arquivo JSON: ${file}. Verifique se o formato está correto.`);
+      console.error(e);
+    }
   }
 });
 
-// ⚠️ Força alteração: inclui timestamp
+// Cria o objeto final que será salvo no arquivo pontos.json
 const conteudoFinal = {
   atualizado_em: new Date().toISOString(),
   pontos: pontos
 };
 
+// Escreve o arquivo final
 fs.writeFileSync(outputFile, JSON.stringify(conteudoFinal, null, 2));
-console.log(`✔ pontos.json gerado com ${pontos.length} pontos`);
+console.log(`✔ Sucesso! O arquivo pontos.json foi gerado com ${pontos.length} pontos.`);
