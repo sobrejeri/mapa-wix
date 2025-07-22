@@ -1,8 +1,0 @@
-{
-  "nome": "Aeroporto de Jeri",
-  "descricao": "Local de chegada e partida de voos.",
-  "latitude": "-2.901626064792177",
-  "longitude": "-40.3462633769053",
-  "imagem": "/uploads/dji_20250703164306_0012_d.jpg",
-  "link": "https://wa.me/5588989123456?text=Quero saber mais sobre o aeroporto"
-}
