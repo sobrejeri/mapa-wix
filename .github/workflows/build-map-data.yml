@@ -1,0 +1,36 @@
+name: Build Map Data
+
+# Este workflow roda automaticamente sempre que houver um push na branch 'principal'
+on:
+  push:
+    branches:
+      - principal
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Clona o seu repositório para a máquina virtual do Actions
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 2. Configura o ambiente Node.js para poder executar o script
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18' # Você pode usar uma versão mais recente se preferir
+
+      # 3. Executa o seu script de build para gerar o arquivo pontos.json
+      - name: Run build script
+        run: node build.js
+
+      # 4. Faz o commit do arquivo pontos.json atualizado de volta para o repositório
+      - name: Commit updated pontos.json
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: 'chore: [Automated] Update map data'
+          file_pattern: 'pontos.json'
+          commit_user_name: 'GitHub Actions Bot'
+          commit_user_email: 'actions@github.com'
+          commit_author: 'GitHub Actions Bot <actions@github.com>'
