@@ -53,7 +53,7 @@
     });
 
     // Carrega os pontos diretamente do JSON central (editado via CMS)
-    fetch('dados/pontos.json') // ← esse é o arquivo gerenciado no Decap CMS
+    fetch('dados/pontos') // ← esse é o arquivo gerenciado no Decap CMS
       .then(res => res.json())
       .then(data => {
         if (!Array.isArray(data.pontos)) {
@@ -82,7 +82,7 @@
         });
       })
       .catch(err => {
-        console.error("Erro ao carregar pontos.json:", err);
+        console.error("Erro ao carregar pontos:", err);
       });
   </script>
 </body>
