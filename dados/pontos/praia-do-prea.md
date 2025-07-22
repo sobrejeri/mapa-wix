@@ -1,8 +1,0 @@
----
-name: Praia do Preá
-latitude: -2.7934
-longitude: -40.4901
-imagem: https://i.imgur.com/abc123.jpg
-link: https://wa.me/5588981222209?text=Quero saber mais sobre a Praia do Preá
-descricao: Praia ideal para kitesurf, com visual paradisíaco.
----
