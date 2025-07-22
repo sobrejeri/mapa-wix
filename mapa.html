@@ -52,16 +52,15 @@
       projection: 'globe'
     });
 
-    // Carrega os pontos diretamente do JSON central (editado via CMS)
-    fetch('dados/pontos') // ← esse é o arquivo gerenciado no Decap CMS
+    // Carrega os pontos a partir de um único arquivo pontos.json
+    fetch('pontos.json')
       .then(res => res.json())
       .then(data => {
-        if (!Array.isArray(data.pontos)) {
-          console.error("Estrutura inválida no JSON");
-          return;
-        }
+        const pontos = data.pontos || [];
 
-        data.pontos.forEach(ponto => {
+        pontos.forEach(ponto => {
+          if (!ponto.latitude || !ponto.longitude) return;
+
           const el = document.createElement('div');
           el.className = 'custom-marker';
           el.style.backgroundImage = `url(${ponto.imagem || ''})`;
@@ -81,8 +80,8 @@
             .addTo(map);
         });
       })
-      .catch(err => {
-        console.error("Erro ao carregar pontos:", err);
+      .catch(error => {
+        console.error('Erro ao carregar pontos.json:', error);
       });
   </script>
 </body>
