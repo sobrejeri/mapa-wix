@@ -2,32 +2,29 @@ name: Atualizar pontos.json
 
 on:
   push:
+    branches:
+      - main
     paths:
-      - 'dados/pontos/**'
-      - 'build.js'
+      - 'dados/pontos/*.json'
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Clonar repositório
         uses: actions/checkout@v3
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '18'
-
-      - name: Instalar dependências
-        run: npm install gray-matter
-
-      - name: Gerar pontos.json
-        run: node build.js
-
-      - name: Commit e Push
+      - name: Unir arquivos JSON em um único pontos.json
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
+          mkdir -p dados/pontos
+          echo '{ "atualizado_em": "'$(date -u +%Y-%m-%dT%H:%M:%SZ)'", "pontos": [' > pontos.json
+          find dados/pontos -name '*.json' -print0 | sort -z | xargs -0 cat | jq -s '. | join(",\n") | "[" + . + "]"' >> pontos.json
+          echo ']}' >> pontos.json
+
+      - name: Commit e push do pontos.json
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
           git add pontos.json
-          git commit -m "Atualizar pontos.json automaticamente"
+          git commit -m "Atualizar pontos.json automaticamente" || echo "Sem alterações para commitar"
           git push
