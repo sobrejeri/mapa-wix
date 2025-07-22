@@ -21,4 +21,4 @@ collections:
       - { label: "Latitude", name: "latitude", widget: "string", required: true, pattern: '^-?[0-9]+(\\.[0-9]+)?$', hint: "Ex: -2.854524" }
       - { label: "Longitude", name: "longitude", widget: "string", required: true, pattern: '^-?[0-9]+(\\.[0-9]+)?$', hint: "Ex: -40.420346" }
       - { label: "Imagem", name: "imagem", widget: "image", required: false }
-      - { label: "Link", name: "link", widget: "string", required: false } # ← ADICIONE ESTA LINHA
+      - { label: "Link", name: "link", widget: "string", required: false, hint: "Ex: https://wa.me/..." }
