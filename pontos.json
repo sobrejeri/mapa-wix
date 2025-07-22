@@ -1,8 +1,40 @@
-{ "atualizado_em": "2025-07-22T04:24:04Z", "pontos": [
-"Aeroporto de Jeri"
-"Local de chegada e partidade voos."
-"-2.901626064792177"
-"-40.3462633769053"
-"https://imgmd.net/images/v1/guia/1702575/praia-do-prea.jpg"
-"https://wa.me/5588981222990?text=Quero saber mais sobre o aeroportoo"
-]}
+{
+  "atualizado_em": "2025-07-22T04:00:00Z",
+  "pontos": [
+    {
+      "nome": "Praia do Preá",
+      "descricao": "Ponto turístico popular para kitesurf.",
+      "latitude": -2.7944,
+      "longitude": -40.4703,
+      "imagem": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Prea_Beach_Ceara_Brazil.jpg/800px-Prea_Beach_Ceara_Brazil.jpg"
+    },
+    {
+      "nome": "Buraco Azul",
+      "descricao": "Lagoa azul vibrante, excelente para fotos e banhos.",
+      "latitude": -2.8231,
+      "longitude": -40.4449,
+      "imagem": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Buraco_Azul_Camocim_CE.jpg/800px-Buraco_Azul_Camocim_CE.jpg"
+    },
+    {
+      "nome": "Duna do Pôr do Sol",
+      "descricao": "Ponto alto com vista privilegiada do pôr do sol.",
+      "latitude": -2.7986,
+      "longitude": -40.5122,
+      "imagem": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Sunset_in_Jericoacoara.jpg/800px-Sunset_in_Jericoacoara.jpg"
+    },
+    {
+      "nome": "Pedra Furada",
+      "descricao": "Arco natural esculpido pelo mar e vento.",
+      "latitude": -2.7983,
+      "longitude": -40.4908,
+      "imagem": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Pedra_Furada_-_Jericoacoara.jpg/800px-Pedra_Furada_-_Jericoacoara.jpg"
+    },
+    {
+      "nome": "Lagoa do Paraíso",
+      "descricao": "Águas claras com redes dentro da lagoa.",
+      "latitude": -2.8500,
+      "longitude": -40.4590,
+      "imagem": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a3/Lagoa_do_Paraiso_Jijoca.jpg/800px-Lagoa_do_Paraiso_Jijoca.jpg"
+    }
+  ]
+}
