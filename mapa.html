@@ -52,21 +52,24 @@
       projection: 'globe'
     });
 
-    // Carrega os pontos a partir do JSON compilado
-    fetch('pontos.json')
-      .then(response => response.json())
-      .then(dados => {
-        const pontos = dados.pontos || [];
+    // Carrega os pontos diretamente do JSON central (editado via CMS)
+    fetch('dados/pontos.json') // ← esse é o arquivo gerenciado no Decap CMS
+      .then(res => res.json())
+      .then(data => {
+        if (!Array.isArray(data.pontos)) {
+          console.error("Estrutura inválida no JSON");
+          return;
+        }
 
-        pontos.forEach(ponto => {
+        data.pontos.forEach(ponto => {
           const el = document.createElement('div');
           el.className = 'custom-marker';
-          el.style.backgroundImage = `url(${ponto.imagem})`;
+          el.style.backgroundImage = `url(${ponto.imagem || ''})`;
 
           const popupHTML = `
             <div class="popup-content" style="max-width: 250px;">
-              <h3>${ponto.nome}</h3>
-              ${ponto.imagem ? `<img src="${ponto.imagem}" alt="${ponto.nome}" />` : ''}
+              <h3>${ponto.nome || ''}</h3>
+              ${ponto.imagem ? `<img src="${ponto.imagem}" alt="${ponto.nome || ''}" />` : ''}
               <p>${ponto.descricao || ''}</p>
               ${ponto.link ? `<a href="${ponto.link}" target="_blank">Mais informações</a>` : ''}
             </div>
@@ -78,8 +81,8 @@
             .addTo(map);
         });
       })
-      .catch(error => {
-        console.error('Erro ao carregar pontos.json:', error);
+      .catch(err => {
+        console.error("Erro ao carregar pontos.json:", err);
       });
   </script>
 </body>
