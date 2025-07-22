@@ -9,14 +9,17 @@ locale: "pt"
 
 collections:
   - name: "pontos"
-    label: "Todos os Pontos do Mapa"
+    label: "Pontos do Mapa"
+    format: "json"
+    extension: "json"
+    editor:
+      preview: false
     files:
-      - label: "Pontos"
+      - label: "Todos os Pontos"
         name: "pontos"
-        file: "dados/pontos.json"
-        format: "json"
+        file: "pontos.json"
         fields:
-          - label: "Atualizado em"
+          - label: "Data da última atualização"
             name: "atualizado_em"
             widget: "datetime"
             default: ""
@@ -25,8 +28,8 @@ collections:
             widget: "list"
             fields:
               - { label: "Nome", name: "nome", widget: "string" }
-              - { label: "Descrição", name: "descricao", widget: "text" }
-              - { label: "Latitude", name: "latitude", widget: "string" }
-              - { label: "Longitude", name: "longitude", widget: "string" }
-              - { label: "Imagem", name: "imagem", widget: "image" }
-              - { label: "Link", name: "link", widget: "string" }
+              - { label: "Descrição", name: "descricao", widget: "text", required: false }
+              - { label: "Latitude", name: "latitude", widget: "number", value_type: "float" }
+              - { label: "Longitude", name: "longitude", widget: "number", value_type: "float" }
+              - { label: "Imagem", name: "imagem", widget: "image", required: false }
+              - { label: "Link", name: "link", widget: "string", required: false }
