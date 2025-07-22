@@ -9,38 +9,40 @@
     <script>
       window.CMS_MANUAL_INIT = true;
 
-      CMS.init({
-        config: {
-          backend: {
-            name: "git-gateway",
-            branch: "main"
-          },
-          media_folder: "uploads",
-          public_folder: "/uploads",
-          collections: [
-            {
-              name: "pontos",
-              label: "Pontos do Mapa",
-              folder: "dados/pontos",
-              create: true,
-              extension: "json",
-              format: "json",
-              fields: [
-                { label: "Nome", name: "name", widget: "string" },
-                { label: "Descrição", name: "descricao", widget: "text" },
-                { label: "Latitude", name: "latitude", widget: "string" },
-                { label: "Longitude", name: "longitude", widget: "string" },
-                { label: "Imagem", name: "imagem", widget: "image" },
-                {
-                  label: "Link (WhatsApp ou site)",
-                  name: "link",
-                  widget: "string",
-                  required: false
-                }
-              ]
-            }
-          ]
-        }
+      document.addEventListener("DOMContentLoaded", function () {
+        CMS.init({
+          config: {
+            backend: {
+              name: "git-gateway",
+              branch: "main"
+            },
+            media_folder: "uploads",
+            public_folder: "/uploads",
+            collections: [
+              {
+                name: "pontos",
+                label: "Pontos do Mapa",
+                folder: "dados/pontos",
+                create: true,
+                extension: "json",
+                format: "json",
+                fields: [
+                  { label: "Nome", name: "nome", widget: "string" },
+                  { label: "Descrição", name: "descricao", widget: "text" },
+                  { label: "Latitude", name: "latitude", widget: "string" },
+                  { label: "Longitude", name: "longitude", widget: "string" },
+                  { label: "Imagem", name: "imagem", widget: "image" },
+                  {
+                    label: "Link (WhatsApp ou site)",
+                    name: "link",
+                    widget: "string",
+                    required: false
+                  }
+                ]
+              }
+            ]
+          }
+        });
       });
     </script>
   </body>
