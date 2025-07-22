@@ -13,20 +13,23 @@ files.forEach((file) => {
   const fileContent = fs.readFileSync(filePath, 'utf8');
   const { data } = matter(fileContent);
 
-  if (
-    data.name && data.latitude && data.longitude &&
-    data.imagem && data.link && data.descricao
-  ) {
+  if (data.name && data.latitude && data.longitude && data.imagem && data.link && data.descricao) {
     pontos.push({
-      title: data.name,
-      lat: parseFloat(data.latitude),
-      lng: parseFloat(data.longitude),
-      image: data.imagem,
+      nome: data.name,
+      latitude: parseFloat(data.latitude),
+      longitude: parseFloat(data.longitude),
+      imagem: data.imagem,
       link: data.link,
-      description: data.descricao,
+      descricao: data.descricao,
     });
   }
 });
 
-fs.writeFileSync(outputFile, JSON.stringify(pontos, null, 2));
-console.log(`✅ Arquivo pontos.json gerado com ${pontos.length} pontos`);
+// ⚠️ Força alteração: inclui timestamp
+const conteudoFinal = {
+  atualizado_em: new Date().toISOString(),
+  pontos: pontos
+};
+
+fs.writeFileSync(outputFile, JSON.stringify(conteudoFinal, null, 2));
+console.log(`✔ pontos.json gerado com ${pontos.length} pontos`);
