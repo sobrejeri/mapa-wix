@@ -39,21 +39,25 @@
 
     fetch('pontos.json')
       .then(response => response.json())
-      .then(pontos => {
-        pontos.forEach(ponto => {
+      .then(data => {
+        if (!data.pontos || !Array.isArray(data.pontos)) {
+          throw new Error('Formato inválido do pontos.json');
+        }
+
+        data.pontos.forEach(ponto => {
           const el = document.createElement('div');
           el.className = 'custom-marker';
           el.style.backgroundImage = `url(${ponto.imagem})`;
 
           new mapboxgl.Marker(el)
-            .setLngLat([ponto.longitude, ponto.latitude])
+            .setLngLat([parseFloat(ponto.longitude), parseFloat(ponto.latitude)])
             .setPopup(
               new mapboxgl.Popup({ offset: 25 }).setHTML(`
                 <div style="text-align:center; max-width:250px;">
-                  <h3>${ponto.title}</h3>
+                  <h3>${ponto.nome}</h3>
                   ${ponto.imagem ? `<img src="${ponto.imagem}" style="width:100%; border-radius:10px;" />` : ''}
-                  <p>${ponto.description}</p>
-                  ${ponto.link ? `<a href="${ponto.link}" target="_blank">Saiba mais</a>` : ''}
+                  <p>${ponto.descricao}</p>
+                  <a href="${ponto.link}" target="_blank">Saiba mais</a>
                 </div>
               `)
             )
