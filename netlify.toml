@@ -3,10 +3,9 @@
   publish = "." # Publica a raiz do projeto, onde está o mapa.html e pontos.json
 
 [[redirects]]
-  from = "/admin/*"
-  to = "/admin/index.html"
-  status = 200
-  force = true
+from = "/admin/*"
+to = "/admin/index.html"
+status = 200
 
 [[redirects]]
   from = "/*"
