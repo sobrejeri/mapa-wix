@@ -1,7 +1,6 @@
-# netlify.toml
 [build]
-  command = "npm run build:points" # Ou qualquer outro comando de build que você tenha
-  publish = "." # Ou o diretório que você publica, ex: "public", "dist"
+  command = "node build.js"
+  publish = "."
 
 [[redirects]]
   from = "/admin/*"
