@@ -1,18 +1,1 @@
-[
-  {
-    "nome": "Terreno na Vila de Jeri",
-    "descricao": "Terreno plano, 360m², ótima localização, próximo à lagoa.",
-    "preco": "R$ 120.000",
-    "tipo": "Terreno",
-    "status": "Disponível",
-    "latitude": -2.7963,
-    "longitude": -40.5124,
-    "imagem_capa": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-674x446/07/ba/0b/99.jpg",
-    "galeria": [
-      "https://uploads.site.com/terreno001-1.jpg",
-      "https://uploads.site.com/terreno001-2.jpg"
-    ],
-    "video": "https://youtu.be/abcd1234",
-    "whatsapp": "https://wa.me/5588981948912?text=Tenho interesse no imóvel da Vila de Jeri"
-  }
-]
+
