@@ -1,40 +1,16 @@
-{
-  "atualizado_em": "2025-07-22T04:00:00Z",
-  "pontos": [
-    {
-      "nome": "Praia do Preá",
-      "descricao": "Ponto turístico popular para kitesurf.",
-      "latitude": -2.7944,
-      "longitude": -40.4703,
-      "imagem": "https://imgmd.net/images/v1/guia/1702575/praia-do-prea.jpg"
-    },
-    {
-      "nome": "Buraco Azul",
-      "descricao": "Lagoa azul vibrante, excelente para fotos e banhos.",
-      "latitude": -2.8231,
-      "longitude": -40.4449,
-      "imagem": "https://vidasemparedes.com.br/wp-content/uploads/2023/01/oquefazerjericoacoara-4.jpg"
-    },
-    {
-      "nome": "Duna do Pôr do Sol",
-      "descricao": "Ponto alto com vista privilegiada do pôr do sol.",
-      "latitude": -2.7986,
-      "longitude": -40.5122,
-      "imagem": "https://s2-g1.glbimg.com/qk1PH2dxYv5g5ILGi7QMmSVjo_4=/984x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_59edd422c0c84a879bd37670ae4f538a/internal_photos/bs/2023/p/O/Zwm3MPS46TbWd66qkjqw/duna-antes.jpg"
-    },
-    {
-      "nome": "Pedra Furada",
-      "descricao": "Arco natural esculpido pelo mar e vento.",
-      "latitude": -2.7983,
-      "longitude": -40.4908,
-      "imagem": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Anderps_067.JPG/1200px-Anderps_067.JPG"
-    },
-    {
-      "nome": "Lagoa do Paraíso",
-      "descricao": "Águas claras com redes dentro da lagoa.",
-      "latitude": -2.8500,
-      "longitude": -40.4590,
-      "imagem": "https://uploads.dicasdefortalezaejeri.com.br/sites/29/2023/10/Lagoa-de-Jijoca-Jericoacoara-jpeg.webp"
-    }
-  ]
-}
+[
+  {
+    "nome": "Terreno na Vila de Jeri",
+    "descricao": "Terreno plano, 360m², ótima localização, próximo à lagoa.",
+    "preco": "R$ 120.000",
+    "tipo": "Terreno",
+    "status": "Disponível",
+    "latitude": -2.7963,
+    "longitude": -40.5124,
+    "imagem_capa": "https://uploads.site.com/terreno001.jpg",
+    "galeria": [
+      "https://uploads.site.com/terreno001-1.jpg",
+      "https://uploads.site.com/terreno001-2.jpg"
+    ],
+    "video": "https://youtu.be/abcd1234",
+    "whatsapp":
