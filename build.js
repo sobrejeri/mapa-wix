@@ -7,7 +7,7 @@ const outputFile = path.join(__dirname, 'pontos.json');
 let files;
 try {
   files = fs.readdirSync(dir);
-} catch (error) {
+} catch (err) {
   console.error(`ERRO: Não foi possível ler o diretório: ${dir}`);
   process.exit(1);
 }
@@ -21,25 +21,29 @@ files.forEach((file) => {
 
     try {
       const data = JSON.parse(fileContent);
-      const nome = data.nome;
-      const lat = parseFloat(data.latitude);
-      const lng = parseFloat(data.longitude);
 
-      if (nome && !isNaN(lat) && !isNaN(lng)) {
-        pontos.push({
-          nome: nome,
-          descricao: data.descricao || "",
-          latitude: lat,
-          longitude: lng,
-          imagem: data.imagem || "",
-          link: data.link || ""
-        });
+      const ponto = {
+        nome: data.nome || '',
+        descricao: data.descricao || '',
+        preco: data.preco || '',
+        tipo: data.tipo || '',
+        status: data.status || '',
+        latitude: parseFloat(data.latitude),
+        longitude: parseFloat(data.longitude),
+        imagem_capa: data.imagem_capa || data.imagem || '',
+        galeria: data.galeria || [],
+        video: data.video || '',
+        whatsapp: data.whatsapp || '',
+        link: data.link || ''
+      };
+
+      if (!isNaN(ponto.latitude) && !isNaN(ponto.longitude)) {
+        pontos.push(ponto);
       } else {
-        console.warn(`AVISO: Ignorado ${file} — Campos obrigatórios ausentes ou inválidos.`);
+        console.warn(`AVISO: Latitude/Longitude inválida no arquivo ${file}`);
       }
-    } catch (e) {
-      console.error(`ERRO: Falha ao processar ${file}`);
-      console.error(e);
+    } catch (err) {
+      console.error(`ERRO ao processar ${file}:`, err);
     }
   }
 });
@@ -50,4 +54,4 @@ const conteudoFinal = {
 };
 
 fs.writeFileSync(outputFile, JSON.stringify(conteudoFinal, null, 2));
-console.log(`✔ Sucesso! Criado pontos.json com ${pontos.length} pontos.`);
+console.log(`✅ Criado pontos.json com ${pontos.length} pontos`);
