@@ -1,19 +1,13 @@
 {
-  "atualizado_em": "2025-07-23T16:15:24.312Z",
-  "pontos": [
-    {
-      "nome": "Teste automático",
-      "descricao": "Esse ponto foi adicionado para teste.",
-      "preco": "R$ 100.000",
-      "tipo": "Terreno",
-      "status": "Disponível",
-      "latitude": -2.8523,
-      "longitude": -40.4932,
-      "imagem_capa": "https://via.placeholder.com/200",
-      "galeria": [],
-      "video": "",
-      "whatsapp": "https://wa.me/5588999999999",
-      "link": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-674x446/07/ba/0b/99.jpg"
-    }
-  ]
+  "nome": "Teste automático",
+  "descricao": "Esse ponto foi adicionado para teste.",
+  "latitude": -2.8523,
+  "longitude": -40.4932,
+  "imagem_capa": "https://via.placeholder.com/200",
+  "preco": "R$ 100.000",
+  "tipo": "Terreno",
+  "status": "Disponível",
+  "galeria": [],
+  "video": "",
+  "whatsapp": "https://wa.me/5588999999999"
 }
