@@ -1,57 +1,35 @@
-const fs = require('fs');
+const fs = require('fs').promises; // Usando a versão de promessas do 'fs'
 const path = require('path');
 
-const dir = path.join(__dirname, 'dados/pontos');
-const outputFile = path.join(__dirname, 'pontos.json');
+const pastaPontos = path.join(__dirname, 'dados', 'pontos');
+const arquivoSaida = path.join(__dirname, 'pontos.json');
 
-let files;
-try {
-  files = fs.readdirSync(dir);
-} catch (err) {
-  console.error(`ERRO: Não foi possível ler o diretório: ${dir}`);
-  process.exit(1);
+async function compilarPontos() {
+  try {
+    // Lê todos os nomes de arquivos no diretório
+    const arquivos = await fs.readdir(pastaPontos);
+
+    // Filtra para garantir que estamos processando apenas arquivos .json
+    const arquivosJson = arquivos.filter(arquivo => path.extname(arquivo).toLowerCase() === '.json');
+
+    // Lê o conteúdo de cada arquivo JSON e o converte para objeto
+    const todosPontos = await Promise.all(
+      arquivosJson.map(async (arquivo) => {
+        const caminhoCompleto = path.join(pastaPontos, arquivo);
+        const conteudo = await fs.readFile(caminhoCompleto, 'utf8');
+        return JSON.parse(conteudo);
+      })
+    );
+
+    // Escreve o array de pontos no arquivo de saída
+    await fs.writeFile(arquivoSaida, JSON.stringify(todosPontos, null, 2), 'utf8');
+    
+    console.log(`✅ Sucesso! ${todosPontos.length} pontos foram compilados em pontos.json.`);
+  } catch (err) {
+    console.error('❌ Erro ao compilar os pontos:', err);
+    process.exit(1); // Encerra o script com um código de erro
+  }
 }
 
-const pontos = [];
-
-files.forEach((file) => {
-  if (path.extname(file).toLowerCase() === '.json') {
-    const filePath = path.join(dir, file);
-    const fileContent = fs.readFileSync(filePath, 'utf8');
-
-    try {
-      const data = JSON.parse(fileContent);
-
-      const ponto = {
-        nome: data.nome || '',
-        descricao: data.descricao || '',
-        preco: data.preco || '',
-        tipo: data.tipo || '',
-        status: data.status || '',
-        latitude: parseFloat(data.latitude),
-        longitude: parseFloat(data.longitude),
-        imagem_capa: data.imagem_capa || data.imagem || '',
-        galeria: data.galeria || [],
-        video: data.video || '',
-        whatsapp: data.whatsapp || '',
-        link: data.link || ''
-      };
-
-      if (!isNaN(ponto.latitude) && !isNaN(ponto.longitude)) {
-        pontos.push(ponto);
-      } else {
-        console.warn(`AVISO: Latitude/Longitude inválida no arquivo ${file}`);
-      }
-    } catch (err) {
-      console.error(`ERRO ao processar ${file}:`, err);
-    }
-  }
-});
-
-const conteudoFinal = {
-  atualizado_em: new Date().toISOString(),
-  pontos: pontos
-};
-
-fs.writeFileSync(outputFile, JSON.stringify(conteudoFinal, null, 2));
-console.log(`✅ Criado pontos.json com ${pontos.length} pontos`);
+// Executa a função
+compilarPontos();
