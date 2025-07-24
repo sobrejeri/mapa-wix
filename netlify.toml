@@ -1,9 +1,7 @@
+# Remova a seção [build] se for usar a GitHub Action para gerar o pontos.json
+# A Netlify só precisa publicar os arquivos que já estão no repositório.
 [build]
-  command = "node build.js"
-  publish = "."
+  publish = "." # Apenas informa qual pasta publicar
 
-[[redirects]]
-  from = "/admin/*"
-  to = "/admin/index.html"
-  status = 200
-  force = true
+# Remova a seção de redirects, ela não é necessária e está causando o erro.
+# A Netlify já entende que /admin/ deve servir /admin/index.html por padrão.
