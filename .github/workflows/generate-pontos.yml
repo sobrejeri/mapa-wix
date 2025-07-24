@@ -1,0 +1,47 @@
+# Nome do Workflow para identificação na aba "Actions" do GitHub
+name: Gerar pontos.json a partir dos dados do CMS
+
+# Gatilho (trigger) da automação
+on:
+  push:
+    branches:
+      - main  # Ou a branch principal que você usa
+    paths:
+      - 'dados/pontos/**.json' # Roda SOMENTE se houver alteração nos arquivos JSON dos pontos
+
+jobs:
+  build-json:
+    runs-on: ubuntu-latest # Usa a última versão estável do Ubuntu como ambiente
+
+    steps:
+      # Passo 1: Clona o repositório para o ambiente da Action
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      # Passo 2: Configura o ambiente Node.js para rodar o script
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20' # Recomendado usar uma versão LTS (Long-Term Support)
+
+      # Passo 3: Executa o script de build para gerar o pontos.json
+      # Este comando executa o seu arquivo build.js
+      - name: Gerar o arquivo pontos.json
+        run: node build.js
+
+      # Passo 4: Faz o commit do arquivo gerado de volta para o repositório
+      - name: Commit do arquivo pontos.json
+        run: |
+          # Configura o Git com um usuário "bot" para o commit
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          
+          # Adiciona o arquivo gerado ao stage do Git
+          git add pontos.json
+          
+          # Verifica se há mudanças para commitar. Se não houver, o script para aqui.
+          # Se houver, cria um novo commit com uma mensagem padrão.
+          git diff --staged --quiet || git commit -m "chore(data): Atualiza pontos.json [skip ci]"
+          
+          # Empurra (push) o commit para a branch de origem
+          git push
