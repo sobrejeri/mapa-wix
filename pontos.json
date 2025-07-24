@@ -3,11 +3,11 @@
   "descricao": "Esse ponto foi adicionado para teste.",
   "latitude": -2.8523,
   "longitude": -40.4932,
-  "imagem_capa": "https://via.placeholder.com/200",
+  "imagem_capa": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-674x446/07/ba/0b/99.jpg",
   "preco": "R$ 100.000",
   "tipo": "Terreno",
   "status": "Disponível",
-  "galeria": [],
-  "video": "",
+  "galeria": [https://media-cdn.tripadvisor.com/media/attractions-splice-spp-674x446/07/ba/0b/99.jpg],
+  "video": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-674x446/07/ba/0b/99.jpg",
   "whatsapp": "https://wa.me/5588999999999"
 }
