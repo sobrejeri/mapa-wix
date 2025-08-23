@@ -53,8 +53,10 @@ const run = async () => {
       continue;
     }
 
+    const id = autoId || ('imv-' + shortHash(`${j.nome||j.titulo||''}|${j.latitude}|${j.longitude}`));
+
     itens.push({
-      id: autoId || ('imv-' + shortHash(`${j.nome||j.titulo||''}|${j.latitude}|${j.longitude}`)),
+      id,
       nome: j.nome || j.titulo || 'Imóvel',
       descricao: j.descricao || '',
       preco: toNumber(j.preco),
@@ -62,7 +64,7 @@ const run = async () => {
       status: statusNorm || 'disponivel', // <- idem
       imagem_capa: j.imagem_capa || j.capa || j.imagem || '',
       galeria: j.galeria || [],
-      url: j.url || '',
+      url: j.url || `imovel.html?id=${id}`,
       whatsapp: onlyDigits(j.whatsapp),
       latitude: lat,
       longitude: lng,

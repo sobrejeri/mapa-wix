@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Imóvel</title>
+  <style>
+    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial; margin:0; padding:20px; }
+    h1 { margin-top:0; }
+    .price { font-size:20px; font-weight:700; margin:10px 0; }
+    .gallery { display:flex; gap:10px; overflow-x:auto; margin:20px 0; }
+    .gallery img { height:200px; border-radius:8px; }
+    .contact { margin-top:20px; }
+    .btn { display:inline-block; padding:10px 16px; border-radius:8px; text-decoration:none; font-weight:600; }
+    .btn-whatsapp { background:#25D366; color:#fff; }
+  </style>
+</head>
+<body>
+<div id="content">Carregando...</div>
+<script>
+(async function(){
+  const params = new URLSearchParams(location.search);
+  const id = params.get('id');
+  const container = document.getElementById('content');
+  try {
+    const resp = await fetch('pontos.json');
+    const itens = await resp.json();
+    const imv = itens.find(i => i.id === id);
+    if(!imv){
+      container.textContent = 'Imóvel não encontrado.';
+      return;
+    }
+    const imgs = [imv.imagem_capa, ...(imv.galeria||[])].filter(Boolean);
+    const gal = imgs.map(src => `<img src="${src}" alt=""/>`).join('');
+    const msg = encodeURIComponent(`Olá! Tenho interesse no imóvel ${imv.id} – ${imv.nome} (R$ ${Number(imv.preco).toLocaleString('pt-BR')}).`);
+    const wa = imv.whatsapp ? `https://wa.me/${imv.whatsapp}?text=${msg}` : null;
+    container.innerHTML = `
+      <h1>${imv.nome}</h1>
+      <div class="price">R$ ${Number(imv.preco).toLocaleString('pt-BR')}</div>
+      <div class="gallery">${gal}</div>
+      <p>${imv.descricao || ''}</p>
+      <div class="contact">
+        ${wa ? `<a class="btn btn-whatsapp" target="_blank" href="${wa}">WhatsApp</a>` : ''}
+      </div>
+    `;
+  } catch (e) {
+    container.textContent = 'Falha ao carregar os dados.';
+    console.error(e);
+  }
+})();
+</script>
+</body>
+</html>
