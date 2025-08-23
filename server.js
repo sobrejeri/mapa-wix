@@ -61,21 +61,48 @@ function readBody(req) {
 }
 
 const server = http.createServer(async (req, res) => {
-  if (req.method === 'POST' && req.url === '/api/imoveis') {
-    try {
-      const body = await readBody(req);
-      const imovel = { id: crypto.randomUUID(), ...body };
-      const lista = await readDb();
-      lista.push(imovel);
-      await writeDb(lista);
-      res.writeHead(201, { 'Content-Type': 'application/json' });
-      res.end(JSON.stringify({ ok: true, id: imovel.id }));
-    } catch (err) {
-      console.error('Erro ao salvar', err);
-      res.writeHead(500, { 'Content-Type': 'application/json' });
-      res.end(JSON.stringify({ ok: false, error: 'erro_ao_salvar' }));
+  if (req.method === 'GET' && req.url === '/config.js') {
+    const base = process.env.API_BASE_URL || '/api';
+    res.writeHead(200, { 'Content-Type': 'application/javascript; charset=utf-8' });
+    res.end(`window.API_BASE_URL = '${base}';`);
+    return;
+  }
+
+  if (req.url === '/api/imoveis') {
+    if (req.method === 'POST') {
+      try {
+        const body = await readBody(req);
+        const imovel = { id: crypto.randomUUID(), ...body };
+        const lista = await readDb();
+        lista.push(imovel);
+        await writeDb(lista);
+        res.writeHead(201, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ ok: true, id: imovel.id }));
+      } catch (err) {
+        console.error('Erro ao salvar', err);
+        res.writeHead(500, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ ok: false, error: 'erro_ao_salvar' }));
+      }
+      return;
+    } else if (req.method === 'GET') {
+      try {
+        const lista = await readDb();
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify(lista));
+      } catch (err) {
+        console.error('Erro ao ler', err);
+        res.writeHead(500, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ ok: false, error: 'erro_ao_ler' }));
+      }
+      return;
     }
-  } else if (req.method === 'GET') {
+
+    res.writeHead(405);
+    res.end();
+    return;
+  }
+
+  if (req.method === 'GET') {
     await serveStatic(req, res);
   } else {
     res.writeHead(404);
