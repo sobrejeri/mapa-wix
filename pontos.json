@@ -1,13 +1,36 @@
-{
-  "nome": "Teste automático",
-  "descricao": "Esse ponto foi adicionado para teste.",
-  "latitude": -2.8523,
-  "longitude": -40.4932,
-  "imagem_capa": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-674x446/07/ba/0b/99.jpg",
-  "preco": "R$ 100.000",
-  "tipo": "Terreno",
-  "status": "Disponível",
-  "galeria": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-674x446/07/ba/0b/99.jpg",
-  "video": "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-674x446/07/ba/0b/99.jpg",
-  "whatsapp": "https://wa.me/5588999999999"
-}
+[
+  {
+    "id": "map-descricao-jericoacoaora-2-8852218413",
+    "nome": "Teste automático",
+    "descricao": "Esse ponto foi adicionado para teste.",
+    "preco": 100000,
+    "tipo": "terreno",
+    "status": "disponivel",
+    "imagem_capa": "https://via.placeholder.com/200",
+    "galeria": [],
+    "url": "",
+    "whatsapp": "5588999999999",
+    "latitude": -2.8523,
+    "longitude": -40.4932,
+    "quartos": 0,
+    "area_m2": 0,
+    "financia": false
+  },
+  {
+    "id": "map-imagem-https-jujunatrip-com-wp-conte",
+    "nome": "Teste automático",
+    "descricao": "Esse ponto foi adicionado para teste.",
+    "preco": 100000,
+    "tipo": "terreno",
+    "status": "disponivel",
+    "imagem_capa": "https://via.placeholder.com/200",
+    "galeria": [],
+    "url": "",
+    "whatsapp": "5588999999999",
+    "latitude": -2.8523,
+    "longitude": -40.4932,
+    "quartos": 0,
+    "area_m2": 0,
+    "financia": false
+  }
+]
