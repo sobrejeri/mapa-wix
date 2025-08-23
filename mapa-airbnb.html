@@ -247,8 +247,12 @@
     list.querySelectorAll('.card').forEach(card=>{
       card.addEventListener('click', ()=>{
         const f = features.find(x=>x.properties.id === card.dataset.id);
-        map.flyTo({ center: f.geometry.coordinates, zoom: 15 });
         const p = f.properties;
+        if (p.url) {
+          window.open(p.url, '_blank');
+          return;
+        }
+        map.flyTo({ center: f.geometry.coordinates, zoom: 15 });
         const msg = encodeURIComponent(`Olá! Tenho interesse no imóvel ${p.id} – ${p.titulo} (R$ ${formatBRL(p.preco)}).`);
         const wa = p.whatsapp ? `https://wa.me/${p.whatsapp}?text=${msg}` : '#';
         const html = `
