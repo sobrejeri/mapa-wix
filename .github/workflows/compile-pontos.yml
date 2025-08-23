@@ -1,0 +1,23 @@
+name: Compile pontos.json
+on:
+  push:
+    paths:
+      - "dados/pontos/**"
+      - "scripts/compile-pontos.js"
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - run: npm ci || true
+      - run: npm run build:pontos
+      - name: Commit pontos.json
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add pontos.json
+          git commit -m "build: atualiza pontos.json" || echo "sem mudanças"
+          git push
