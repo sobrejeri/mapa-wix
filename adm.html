@@ -57,18 +57,22 @@
   document.getElementById('form-imovel').addEventListener('submit', async e => {
     e.preventDefault();
     const data = Object.fromEntries(new FormData(e.target).entries());
+    ['preco','latitude','longitude'].forEach(k => data[k] = Number(data[k]));
+    if (data.whatsapp) data.whatsapp = data.whatsapp.replace(/\D+/g, '');
     try {
-      const resp = await fetch('https://example.com/api/imoveis', {
+      const resp = await fetch('/api/imoveis', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)
       });
-      if (!resp.ok) throw new Error('HTTP ' + resp.status);
+      let result = {};
+      try { result = await resp.json(); } catch (_) {}
+      if (!resp.ok || !result.ok) throw new Error(result.error || ('HTTP ' + resp.status));
       alert('Enviado com sucesso!');
       e.target.reset();
     } catch (err) {
       console.error('Erro ao enviar', err);
-      alert('Falha ao enviar, ver console.');
+      alert('Falha ao enviar: ' + err.message);
     }
   });
   </script>

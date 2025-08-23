@@ -1,6 +1,7 @@
 {
   "type": "module",
   "scripts": {
-    "build:pontos": "node scripts/compile-pontos.js"
+    "build:pontos": "node scripts/compile-pontos.js",
+    "start": "node server.js"
   }
 }
