@@ -108,6 +108,9 @@
   });
   map.on('error', e => console.error('MAPBOX ERROR:', e?.error || e));
 
+  const params = new URLSearchParams(location.search);
+  const highlightId = params.get('id');
+
   // === DADOS ===
   let ALL = [];         // Features GeoJSON
   let MARKERS = [];     // HTML markers visíveis (zoom alto)
@@ -182,6 +185,28 @@
   }
 
   // === MARKERS (pílulas) + POPUP ===
+  function openPopup(feature, opts = {}){
+    if (!feature) return;
+    if (opts.focus) {
+      map.flyTo({ center: feature.geometry.coordinates, zoom: opts.zoom ?? 15, essential: true });
+    }
+    const p = feature.properties;
+    const msg = encodeURIComponent(`Olá! Tenho interesse no imóvel ${p.id} – ${p.titulo} (R$ ${formatBRL(p.preco)}).`);
+    const wa = p.whatsapp ? `https://wa.me/${p.whatsapp}?text=${msg}` : '#';
+    const html = `
+      <article class="popup-card">
+        ${p.capa ? `<img src="${p.capa}" alt=""/>` : `<img src="https://via.placeholder.com/240x160?text=Sem+foto" alt=""/>`}
+        <h3>${p.titulo}</h3>
+        <div style="font-weight:700">R$ ${formatBRL(p.preco)}</div>
+        <div style="font-size:12px;color:#666">${p.tipo || ''} • ${p.quartos||0} qts • ${p.area_m2||0} m²</div>
+        <div class="popup-actions">
+          ${p.url ? `<a class="btn btn-primary" target="_blank" href="${p.url}">Ver detalhes</a>` : ''}
+          ${p.whatsapp ? `<a class="btn btn-outline" target="_blank" href="${wa}">WhatsApp</a>` : ''}
+        </div>
+      </article>`;
+    new mapboxgl.Popup({ offset: 12 }).setLngLat(feature.geometry.coordinates).setHTML(html).addTo(map);
+  }
+
   function makeMarker(feature){
     const el = document.createElement('div');
     el.className = 'imovel-pin' + (feature.properties.status !== 'disponivel' ? ' vendido' : '');
@@ -194,23 +219,7 @@
       .setLngLat(feature.geometry.coordinates)
       .addTo(map);
 
-    el.addEventListener('click', () => {
-      const p = feature.properties;
-      const msg = encodeURIComponent(`Olá! Tenho interesse no imóvel ${p.id} – ${p.titulo} (R$ ${formatBRL(p.preco)}).`);
-      const wa = p.whatsapp ? `https://wa.me/${p.whatsapp}?text=${msg}` : '#';
-      const html = `
-        <article class="popup-card">
-          ${p.capa ? `<img src="${p.capa}" alt=""/>` : `<img src="https://via.placeholder.com/240x160?text=Sem+foto" alt=""/>`}
-          <h3>${p.titulo}</h3>
-          <div style="font-weight:700">R$ ${formatBRL(p.preco)}</div>
-          <div style="font-size:12px;color:#666">${p.tipo || ''} • ${p.quartos||0} qts • ${p.area_m2||0} m²</div>
-          <div class="popup-actions">
-            ${p.url ? `<a class="btn btn-primary" target="_blank" href="${p.url}">Ver detalhes</a>` : ''}
-            ${p.whatsapp ? `<a class="btn btn-outline" target="_blank" href="${wa}">WhatsApp</a>` : ''}
-          </div>
-        </article>`;
-      new mapboxgl.Popup({ offset: 12 }).setLngLat(feature.geometry.coordinates).setHTML(html).addTo(map);
-    });
+    el.addEventListener('click', () => openPopup(feature));
 
     return marker;
   }
@@ -256,26 +265,13 @@
     list.querySelectorAll('.card').forEach(card=>{
       card.addEventListener('click', ()=>{
         const f = features.find(x=>x.properties.id === card.dataset.id);
+        if (!f) return;
         const p = f.properties;
         if (p.url) {
           window.open(p.url, '_blank');
           return;
         }
-        map.flyTo({ center: f.geometry.coordinates, zoom: 15 });
-        const msg = encodeURIComponent(`Olá! Tenho interesse no imóvel ${p.id} – ${p.titulo} (R$ ${formatBRL(p.preco)}).`);
-        const wa = p.whatsapp ? `https://wa.me/${p.whatsapp}?text=${msg}` : '#';
-        const html = `
-          <article class="popup-card">
-            ${p.capa ? `<img src="${p.capa}" alt=""/>` : ''}
-            <h3>${p.titulo}</h3>
-            <div style="font-weight:700">R$ ${formatBRL(p.preco)}</div>
-            <div style="font-size:12px;color:#666">${p.tipo || ''} • ${p.quartos||0} qts • ${p.area_m2||0} m²</div>
-            <div class="popup-actions">
-              ${p.url ? `<a class="btn btn-primary" target="_blank" href="${p.url}">Ver detalhes</a>` : ''}
-              ${p.whatsapp ? `<a class="btn btn-outline" target="_blank" href="${wa}">WhatsApp</a>` : ''}
-            </div>
-          </article>`;
-        new mapboxgl.Popup({ offset: 12 }).setLngLat(f.geometry.coordinates).setHTML(html).addTo(map);
+        openPopup(f, { focus: true });
       });
     });
   }
@@ -321,6 +317,13 @@
       });
 
       toggleLayers(); // primeira renderização
+
+      if (highlightId) {
+        const target = ALL.find(f => f.properties.id === highlightId);
+        if (target) {
+          map.once('idle', () => openPopup(target, { focus: true }));
+        }
+      }
     });
   })();
 </script>
